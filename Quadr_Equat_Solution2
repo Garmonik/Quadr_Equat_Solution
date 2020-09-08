@@ -23,7 +23,7 @@ void Enter (double a, double b, double c);
 	\param a, b, c - coefficients for a quadratic equation of the form: a*x^2 + b*x + c = 0
 */
 
-void Sol_Quad_Equat (double a, double b, double c, double *x1, double *x2);
+void Sol_Quad_Equat (double a, double b, double c);
 
 /*!
 	\brief The function solves the linear equation
