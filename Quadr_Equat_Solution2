@@ -34,7 +34,7 @@ void Sol_Quad_Equat (double a, double b, double c, double *x1, double *x2);
 	\param k, b - coefficients for a linear equation of the form: k*x + b = 0
 */
 
-void Sol_Line_Equat (double k, double b, double *x1, double *x2);
+void Sol_Line_Equat (double k, double b);
 
 //================================================================
 
@@ -42,11 +42,11 @@ int main ()
     {
     setlocale (LC_ALL, "Russian");
 
-    double a = 0, b = 0, c = 0, x1 = 0, x2 = 0;
+    double a = 0, b = 0, c = 0;
 
     Enter (a, b, c);
 
-    Sol_Quad_Equat (a, b, c, &x1, &x2);
+    Sol_Quad_Equat (a, b, c);
 
     return 0;
     }
@@ -77,11 +77,11 @@ void Enter (double a, double b, double c)
 
 //================================================================
 
-double Sol_Quad_Equat (double a, double b, double c, double *x1, double *x2)
+void Sol_Quad_Equat (double a, double b, double c)
     {
     if (fabs (a) < 1e-7)
         {
-        return Sol_Line_Equat (b, c, double *x1, double *x2);
+        Sol_Line_Equat (b, c);
         }
     else if (fabs (a) > 1e-7)
             {
@@ -90,7 +90,7 @@ double Sol_Quad_Equat (double a, double b, double c, double *x1, double *x2)
                 if (fabs (c) < 1e-7)
                     {
                     printf ("Это уравнение имеет единственный корень x = 0");
-                    *x1 = *x2 = 0;
+                    double x1 = x2 = 0;
                     }
                 else if (fabs (c) > 1e-7)
                         {
@@ -99,12 +99,12 @@ double Sol_Quad_Equat (double a, double b, double c, double *x1, double *x2)
                             {
                             printf ("Это уравнение не имеет действительных корней.\n"
                                     "Программа возвращает 0.");
-                            *x1 = *x2 = 0;
+                            double x1 = x2 = 0;
                             }
                             else if (d < 0)
                                  {
-                                 *x1 = (sqrt(-d))/(2*a);
-                                 *x2 = -(sqrt(-d))/(2*a);
+                                 double x1 = (sqrt(-d))/(2*a);
+                                 double x2 = -(sqrt(-d))/(2*a);
                                  printf ("Это уравнение имеет два корня x1 = %lg, x2 = %lg", x1, x2);
                                  }
                         }
@@ -167,5 +167,5 @@ void Sol_Line_Equat (double k, double b)
                     }
             }
     printf ("\n"
-            "Операция решения уравнения закончилась.");
+            "Операция решения уравнения закончила свою работу.");
     }
