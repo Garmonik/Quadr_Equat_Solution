@@ -1,0 +1,145 @@
+#include <stdio.h>
+#include <locale.h>
+#include <math.h>
+//================================================================
+/*!
+	\brief Coefficients availability function a, b, c
+	\author Kolyadich Mark
+	\version 1.0
+	\date 06 September 2020
+	\param a, b, c  - coefficients for a quadratic equation of the form: a*x^2 + b*x + c = 0
+*/
+void Enter (double a, double b, double c);
+/*!
+	\brief The function solves a quadratic equation
+	\author Kolyadich Mark
+	\version 1.0
+	\date 06 September 2020
+	\param a, b, c - parameters that are defined in the Enter function
+	\param a, b, c - coefficients for a quadratic equation of the form: a*x^2 + b*x + c = 0
+*/
+
+void Sol_Quad_Equat (double a, double b, double c);
+
+/*!
+	\brief The function solves the linear equation
+	\author Kolyadich Mark
+	\version 1.0
+	\date 06 September 2020
+	\param k, b - parameters that are defined in the Enter function
+	\param k, b - coefficients for a linear equation of the form: k*x + b = 0
+*/
+void Sol_Line_Equat (double k, double b);
+//================================================================
+int main ()
+    {
+    setlocale (LC_ALL, "Russian");
+    double a = 0, b = 0, c = 0;
+    Enter (a, b, c);
+    Sol_Quad_Equat (a, b, c);
+    return 0;
+    }
+//================================================================
+void Enter (double a, double b, double c)
+    {
+    printf ("Программа, которая решает квадратные уравнения вида "
+            "a*x^2 + b*x + c = 0.\n"
+            "Автор: Колядич М. А. Тест №1\n"
+            "Введите значения для a, b и c:");
+    while (scanf ("%lg %lg %lg", &a, &b, &c) !=3)
+        {
+        printf ("\n"
+                "Ошибка!!! Вы ввели не корректные значения. "
+                "Пожалуйства введите числа ещё раз.\n"
+                "Введите значения для a, b и c:");
+        fflush (stdin);
+        }
+    printf ("Благодарю за ввод. Производится решение уравнения:\n"
+            "%lg*x^2 + %lg*x + %lg = 0\n"
+            "Операция решения уравнения началась.\n", a, b, c);
+    }
+//================================================================
+void Sol_Quad_Equat (double a, double b, double c)
+    {
+    if (fabs (a) < 1e-7)
+        {
+        Sol_Line_Equat (b, c);
+        }
+    else if (fabs (a) > 1e-7)
+            {
+            if (fabs (b) < 1e-7)
+                {
+                if (fabs (c) < 1e-7)
+                    {
+                    printf ("Это уравнение имеет единственный корень x = 0");
+                    }
+                else if (fabs (c) > 1e-7)
+                        {
+                        double d = 4*a*c;
+                            if (d > 0)
+                            {
+                            printf ("Это уравнение не имеет действительных корней.\n"
+                                    "Программа возвращает 0.");
+                            }
+                            else if (d < 0)
+                                 {
+                                 double x1 = (sqrt(-d))/(2*a);
+                                 double x2 = -(sqrt(-d))/(2*a);
+                                 printf ("Это уравнение имеет два корня x1 = %lg, x2 = %lg", x1, x2);
+                                 }
+                        }
+                }
+            else if (fabs (b) > 1e-7)
+                {
+                 double d = b*b - 4*a*c;
+                 if (d < 0)
+                    {
+                    printf ("Это уравнение не имеет действительных корней.");
+                    }
+                 else if (fabs (d) < 1e-7)
+                        {
+                        double x1 = -b/(2*a);
+                        printf ("Это уравнение имеет единственный корень x = %lg", x1);
+                        }
+                      else if (d > 0)
+                            {
+                            double x1 = (-b + sqrt(b*b - 4*a*c)) / (2*a);
+                            double x2 = (-b - sqrt(b*b - 4*a*c)) / (2*a);
+                            printf ("Это уравнение имеет два корня x1 = %lg, x2 = %lg", x1, x2);
+                            }
+                }
+            }
+    printf ("\n"
+            "Операция решения уравнения закончилась.");
+    }
+//================================================================
+void Sol_Line_Equat (double k, double b)
+    {
+    if (fabs (b) < 1e-7)
+        {
+        if (fabs (k) < 1e-7)
+            {
+            printf ("Это уравнение имеет бесконечное множество корней.\n"
+                    "Программа возвращает 0");
+            }
+        else if (fabs (k) > 1e-7)
+                {
+                printf ("Это уравнение имеет единственный корень x = 0");
+                }
+        }
+    else if (fabs (b) > 1e-7)
+            {
+            if (fabs (k) < 1e-7)
+                {
+                printf ("Это уравнение не имеет корней.\n"
+                        "Программа возвращает 0.");
+                }
+            else if (fabs (k) > 1e-7)
+                    {
+                    double x2 = -(b/k);
+                    printf ("Это уравнение имеет единственный корень x = %lg", x2);
+                    }
+            }
+    printf ("\n"
+            "Операция решения уравнения закончила свою работу.");
+    }
